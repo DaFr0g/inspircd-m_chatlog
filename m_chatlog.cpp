@@ -8,7 +8,7 @@
  * This program is free but copyrighted software; see
  *          the file COPYING for details.
  *
- * Channel Chat Logging module (c) 2009-2011 Daniel Rich <drich@employees.org>
+ * Channel Chat Logging module (c) 2015 Daniel Rich <drich@employees.org>
  *
  * ---------------------------------------------------
  */
@@ -22,15 +22,24 @@ class ModuleChatLog : public Module
  private:
     std::vector<std::string> logexception;
  public:
-    ModuleChatLog()
+    void init()
     {
-
-        Implementation eventlist[] = { I_OnUserPreMessage, I_OnUserPreNotice, I_OnUserJoin, I_OnUserPart, I_OnUserQuit, I_OnUserKick };
-        ServerInstance->Modules->Attach(eventlist, this, 6);
+	OnRehash(NULL);
+        Implementation eventlist[] = { I_OnRehash, I_OnUserPreMessage, I_OnUserPreNotice, I_OnUserJoin, I_OnUserPart, I_OnUserQuit, I_OnUserKick };
+        ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
     }
 
     virtual ~ModuleChatLog()
     {
+    }
+
+    void OnRehash(User* user)
+    {
+        logexception.clear();
+
+        ConfigTagList tags = ServerInstance->Config->ConfTags("chatlog");
+        for (ConfigIter i = tags.first; i != tags.second; ++i)
+            logexception.push_back(i->second->getString("exception"));
     }
 
     virtual ModResult OnUserPreMessage(User* user,void* dest,int target_type, std::string &text, char status, CUList &exempt_list)
@@ -38,13 +47,15 @@ class ModuleChatLog : public Module
         if (target_type == TYPE_USER)
         {
             User* u = (User*)dest;
-            // Exclude messages for excluded nicks
-              for (std::vector<std::string>::iterator x = logexception.begin(); x != logexception.end(); x++) {
-                   if (InspIRCd::Match(u->nick, *x, ascii_case_insensitive_map))
-                        return MOD_RES_PASSTHRU;
-              }
+            // Exclude messages for excluded nicks - both to and response
+            for (std::vector<std::string>::iterator x = logexception.begin(); x != logexception.end(); x++) {
+                if (InspIRCd::Match(u->nick.c_str(), *x, ascii_case_insensitive_map))
+                    return MOD_RES_PASSTHRU;
+                if (InspIRCd::Match(user->nick.c_str(), *x, ascii_case_insensitive_map))
+                    return MOD_RES_PASSTHRU;
+            }
 
-              ServerInstance->Logs->Log("m_chatlog",DEFAULT,"%s: <%s!%s@%s> %s",u->nick.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
+            ServerInstance->Logs->Log("m_chatlog",DEFAULT,"%s: <%s!%s@%s> %s",u->nick.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
          }
          else if (target_type == TYPE_CHANNEL)
          {
