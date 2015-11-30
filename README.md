@@ -9,14 +9,12 @@ Credit
 ======
 
 The original module was written by Daniel Rich <drich@employees.org> and forked
-on github by Josh Enders <josh.enders@gmail.com>.
-
-See: http://www.inspircd.org/forum/showthread.php?t=5592
+on github by Josh Enders <josh.enders@gmail.com>. Forked again by Daniel Ricn.
 
 Building
 =========
 
-This module has been successfully built against InspIRCd v2.0.5. It's likely
+This module has been successfully built against InspIRCd v2.0.20. It's likely
 to build against other versions but this hasn't been verified.
 
 Clone the latest version of InspIRCd from the repository
@@ -25,11 +23,11 @@ Clone the latest version of InspIRCd from the repository
 
 Create a local branch and checkout into the new branch
 
-    git checkout -b insp205 v2.0.5
+    git checkout -b insp205 v2.0.20
 
 Download the module
 
-    wget -O src/modules/extra/m_chatlog.cpp https://raw.github.com/joshenders/inspircd-m_chatlog/master/m_chatlog.cpp
+    wget -O src/modules/extra/m_chatlog.cpp https://raw.github.com/sjthespian/inspircd-m_chatlog/master/m_chatlog.cpp
 
 Enable the module
 
