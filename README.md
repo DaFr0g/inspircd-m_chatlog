@@ -61,3 +61,16 @@ The following lines should be appended to `/etc/inspircd/modules.conf`
     # reasons. Exceptions can be added below.
     #<chatlog exception="nickserv">
     #<chatlog exception="chanserv">
+    
+    #-#-#-#-#-#-#-#-#-# LOGGING CONFIGURATION #-#-#-#-#-#-#-#-#-#-#-#-#-#
+    <log
+    method="file"
+    type="USERINPUT USEROUTPUT m_chatlog_user"
+    level="default"
+    target="logs/chat-user.log">
+    <log
+    method="file"
+    type="USERINPUT USEROUTPUT m_chatlog_channel"
+    level="default"
+    target="logs/chat-channel.log">
+	
