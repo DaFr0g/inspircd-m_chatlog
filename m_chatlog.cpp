@@ -86,7 +86,7 @@ class ModuleChatLog : public Module
 
     void OnUserQuit(User* user, const std::string& message, const std::string& oper_message)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has quit IRC: %s", u->nick.c_str(), memb->chan->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has quit IRC: %s", user->nick.c_str(), memb->chan->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
     }
 
     void OnUserKick(User* source, Membership* memb, const std::string &reason, CUList& excepts)
