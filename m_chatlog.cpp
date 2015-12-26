@@ -75,7 +75,7 @@ class ModuleChatLog : public Module
 
     void OnUserJoin(Membership* memb, bool sync, bool created, CUList& excepts)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has joined %s", memb->chan->name.c_str()), memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has joined %s", memb->chan->name.c_str(), memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str());
     }
 
     void OnUserPart(Membership* memb, std::string &partmessage, CUList& except_list)
