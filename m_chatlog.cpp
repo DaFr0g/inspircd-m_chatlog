@@ -49,7 +49,7 @@ class ModuleChatLog : public Module
             User* u = (User*)dest;
             // Exclude messages for excluded nicks - both to and response
             for (std::vector<std::string>::iterator x = logexception.begin(); x != logexception.end(); x++) {
-                if (InspIRCd::Match(u->nick.c_str(), *x, ascii_case_insensitive_map))
+                if (InspIRCd::Match(user->nick.c_str(), *x, ascii_case_insensitive_map))
                     return MOD_RES_PASSTHRU;
                 if (InspIRCd::Match(user->nick.c_str(), *x, ascii_case_insensitive_map))
                     return MOD_RES_PASSTHRU;
