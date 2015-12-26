@@ -75,23 +75,23 @@ class ModuleChatLog : public Module
 
     void OnUserJoin(Membership* memb, bool sync, bool created, CUList& excepts)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"*** %s <%s@%s> has joined %s",memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has joined %s", memb->chan->name.c_str()), memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str());
     }
 
     void OnUserPart(Membership* memb, std::string &partmessage, CUList& except_list)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"*** %s <%s@%s> has left %s: %s",memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str(), partmessage.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has left %s: %s", memb->chan->name.c_str(), memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), memb->chan->name.c_str(), partmessage.c_str());
     }
 
 
-    void OnUserQuit(User* user, const std::string& message, const std::string& oper_message)
+    void OnUserQuit(User* user, Membership* memb, const std::string& message, const std::string& oper_message)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"*** %s <%s@%s> has quit IRC: %s",user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has quit IRC: %s", memb->chan->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
     }
 
     void OnUserKick(User* source, Membership* memb, const std::string &reason, CUList& excepts)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"*** %s <%s@%s> has been kicked by %s <%s@%s> from %s: %s",memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), source->nick.c_str(), source->ident.c_str(), source->host.c_str(), memb->chan->name.c_str(), reason.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has been kicked by %s <%s@%s> from %s: %s", memb->chan->name.c_str(), memb->user->nick.c_str(), memb->user->ident.c_str(), memb->user->host.c_str(), source->nick.c_str(), source->ident.c_str(), source->host.c_str(), memb->chan->name.c_str(), reason.c_str());
     }
 
     virtual Version GetVersion()
