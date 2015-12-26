@@ -55,13 +55,13 @@ class ModuleChatLog : public Module
                     return MOD_RES_PASSTHRU;
             }
 
-            ServerInstance->Logs->Log("m_chatlog_user",DEFAULT,"%s: %s <%s@%s> %s",u->nick.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
+            ServerInstance->Logs->Log("m_chatlog_user",DEFAULT,"%s: %s <%s@%s> %s", u->nick.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
          }
          else if (target_type == TYPE_CHANNEL)
          {
               Channel* c = (Channel*)dest;
 
-              ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: %s <%s@%s> %s",c->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
+              ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: %s <%s@%s> %s", c->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str(), text.c_str());
          }
          return MOD_RES_PASSTHRU;
     }
@@ -84,9 +84,9 @@ class ModuleChatLog : public Module
     }
 
 
-    void OnUserQuit(User* user, Membership* memb, const std::string& message, const std::string& oper_message)
+    void OnUserQuit(User* user, const std::string& message, const std::string& oper_message)
     {
-         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has quit IRC: %s", memb->chan->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
+         ServerInstance->Logs->Log("m_chatlog_channel",DEFAULT,"%s: *** %s <%s@%s> has quit IRC: %s", u->nick.c_str(), memb->chan->name.c_str(), user->nick.c_str(), user->ident.c_str(), user->host.c_str() ,message.c_str());
     }
 
     void OnUserKick(User* source, Membership* memb, const std::string &reason, CUList& excepts)
