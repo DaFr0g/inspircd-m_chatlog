@@ -11,6 +11,7 @@ Credit
 The original module was written by [Daniel Rich](mailto:drich@employees.org)
 and forked on github by [Josh Enders](mailto:josh.enders@gmail.com).
 Forked again by Daniel Rich.
+Forked by DaFr0g
 
 Building
 =========
