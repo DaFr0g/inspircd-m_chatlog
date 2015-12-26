@@ -2,8 +2,9 @@ About
 =====
 
 The Channel Chat Logging module is a third-party InpsIRCd module that logs all
-user messages as well as channel joins, parts, and quits. It logs with a type
-of `m_chatlog` to make it easy to filter to a separate log file.
+user messages as well as channel joins, parts, and quits. 
+
+It logs with a type of `m_chatlog_user` and `m_chatlog_channel` to make it easy to filter to a separate log file.
 
 Credit
 ======
